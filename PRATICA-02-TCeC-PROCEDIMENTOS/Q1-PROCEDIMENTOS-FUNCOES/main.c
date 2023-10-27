@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_SIZE 100
-
 /*(A)
 procedimento/função que leia duas sequências finitas de números naturais (N)
 a partir do teclado, apresente-as na tela e, depois, armazene-as em um arquivo no
