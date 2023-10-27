@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1698402220 source:c:\users\tech\documents\codeblocks\exercicios-recursividade\q2-soma-numeros-recursiva\main.c
+	<stdio.h>
+	<stdlib.h>
+
