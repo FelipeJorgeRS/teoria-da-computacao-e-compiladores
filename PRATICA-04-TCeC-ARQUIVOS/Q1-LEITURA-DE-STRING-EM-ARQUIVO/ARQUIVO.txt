@@ -1,0 +1,4 @@
+Cada dia é uma nova oportunidade para brilhar!
+
+o tamanho da string "brilhar!" é: 8
+A sting inversa é: "!rahlirb" 
