@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1698381519 source:c:\users\tech\documents\codeblocks\exercicios-c-alocacao-de-memoria\q3-realloc\main.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+	<ctype.h>
+

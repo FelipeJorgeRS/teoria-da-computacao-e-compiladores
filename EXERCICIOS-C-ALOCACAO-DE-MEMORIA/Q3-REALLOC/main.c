@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <locale.h>
+#include <ctype.h>
 
 struct Veiculo{
 char chassi[10];
@@ -7,7 +9,7 @@ char marca[10];
 char modelo[6];
 double preco;
 };
-// Alocação dinâmica de memória usando malloc
+
 struct Veiculo* AlocacaoMemoriaPorMalloc(int tamanho){
    struct Veiculo *array = (struct Veiculo*)malloc(tamanho * sizeof(struct Veiculo));
         if (array == NULL) {
@@ -17,11 +19,11 @@ struct Veiculo* AlocacaoMemoriaPorMalloc(int tamanho){
         return array;
 }
 
-// PRENCHER VETOR
-void PreencherArray(struct Veiculo *vetor, int tamanho) {
+void PreencherArray(struct Veiculo *vetor, int inicio, int fim) //inicio e fim: especificam o intervalo de índices que devem ser preenchidos no array.
+{
     int i = 0;
 
-    for (i = 0; i < tamanho; i++) {
+    for (i = inicio; i < fim; i++) {
         printf("Digite o NUMERO DO CHASI %d: ", i + 1);
         scanf("%s", vetor[i].chassi);
         printf("Digite a MARCA do veiculo %d: ", i + 1);
@@ -29,13 +31,11 @@ void PreencherArray(struct Veiculo *vetor, int tamanho) {
         printf("Digite o MODELO do veiculo %d: ", i + 1);
         scanf("%s", vetor[i].modelo);
         printf("Digite o PREÇO do veiculo %d: ", i + 1);
-        scanf("%lf", vetor[i].preco);
+        scanf("%lf", &vetor[i].preco);
 
     }
 }
 
-
-// Imprimir o array antes da realocação
 void imprimirArray (struct Veiculo *vetor , int tamanho){
 printf("Array (antes da realocação): ");
     int i=0;
@@ -48,8 +48,6 @@ printf("Array (antes da realocação): ");
     }
 }
 
-
-// REALLOC: Realocar o array para um tamanho maior
 struct Veiculo* RealocNovoTamanho (struct Veiculo* vetor, int novo_tamanho){
 
     vetor = (struct Veiculo *)realloc(vetor, novo_tamanho * sizeof(struct Veiculo));
@@ -60,31 +58,29 @@ struct Veiculo* RealocNovoTamanho (struct Veiculo* vetor, int novo_tamanho){
     return vetor;
 } // fim da função REALLOC
 
-
-//MAIN
 int main() {
+setlocale(LC_CTYPE, "");
 int tamanho=0;
-
 
 printf("Digite o tamanho inicial do vetor: ");
 scanf("%d", &tamanho);
 
-
 struct Veiculo*vetor= AlocacaoMemoriaPorMalloc(tamanho);
 
-PreencherArray(vetor, tamanho);
+PreencherArray(vetor, 0, tamanho);
 
 imprimirArray(vetor, tamanho);
 
 int novo_tamanho=0;
 printf("Digite o novo tamanho do vetor: ");
 scanf("%d", &novo_tamanho);
-RealocNovoTamanho(vetor, novo_tamanho);
+
+vetor = RealocNovoTamanho(vetor, novo_tamanho);
+
+PreencherArray(vetor, tamanho, novo_tamanho);
 
 imprimirArray(vetor, novo_tamanho);
 
 free(vetor);
 return 0;
-    }
-// parei debiugando o código
-//FIM
+}
