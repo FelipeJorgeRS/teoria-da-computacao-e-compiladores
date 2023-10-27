@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1696470373 source:c:\users\tech\documents\codeblocks\q 1 func 1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+	<ctype.h>
+

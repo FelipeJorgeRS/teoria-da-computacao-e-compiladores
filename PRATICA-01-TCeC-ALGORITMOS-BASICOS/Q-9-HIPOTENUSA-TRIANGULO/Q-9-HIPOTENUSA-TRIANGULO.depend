@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1694098745 source:c:\users\tech\documents\codeblocks\q-9-hipotenusa-triangulo\main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+

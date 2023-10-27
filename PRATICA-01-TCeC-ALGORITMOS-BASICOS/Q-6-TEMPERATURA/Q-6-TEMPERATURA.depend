@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1694095609 source:c:\users\tech\documents\codeblocks\q-6-temperatura\main.c
+	<stdio.h>
+	<stdlib.h>
+

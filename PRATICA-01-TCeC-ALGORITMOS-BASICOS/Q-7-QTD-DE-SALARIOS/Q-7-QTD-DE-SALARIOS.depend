@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1694096264 source:c:\users\tech\documents\codeblocks\q-7-qtd-de-salarios\main.c
+	<stdio.h>
+	<stdlib.h>
+
