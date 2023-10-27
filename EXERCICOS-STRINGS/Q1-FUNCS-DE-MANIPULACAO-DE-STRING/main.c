@@ -9,40 +9,58 @@ setlocale(LC_CTYPE, "");
 
     char string1;
     char string2;
-    int numero=1;
+
     char caractereEspecial;
-    //int estado=0;
     char lixo="";
 
-    // ENTRADAS
+    printf("Digite uma sequencia de caractere quaisquer: \n");
     scanf("%c", &string1);
     scanf("%c", &lixo);
 
 //IS ALPHA
-printf("\n Vamos verificar se a strign %d é uma letra", string1);
-printf("Digite um caractere: \n");
-scanf("%c", &string1);
-//estado = isalpha(palavra1);
+printf("\n\n Vamos verificar se a strign %c é uma letra", string1);
+        if(isalpha(string1)){
+        printf("\n A String %c é uma letra ", string1);
+        } else{
+             printf("\n A String %c, NÃO é uma letra ", string1);
 
- if(isalpha(string1)){
-    printf("\n A String %d é uma letra ", numero);
- } else{
-         printf("\n A String %d, NÃO é uma letra ", numero);
+    }
 
- }
 
-/*
  //IS DIGIT
-printf("\n Vamos verificar se a strign %d é uma NÚMERO", numero);
-estado = isdigit(numero);
- printf("%d",estado);
+printf("\n\n Vamos verificar se a strign %c é uma NÚMERO", string1);
+//estado = isdigit(string1);
+         if(isdigit(string1)){
+            printf("\n A String %c é um NÚMERO ", string1);
+         } else{
+                 printf("\n A String %c NÃO é um NUMERO", string1);
 
- if(estado==0){
-    printf("\n A String %d é um NÚMERO ", numero);
- } else{
-         printf("\n A String %d NÃO é um NUMERO", numero);
+    }
+// ISUPPER
+ printf("\n\n Vamos verificar se a strign %c é uma letra MAIUSCULA", string1);
+         if(isupper(string1)){
+            printf("\n A String %c é uma letra MAIUSCULA ", string1);
+         } else{
+                 printf("\n A String %c NÃO uma letra MAIUSCULA", string1);
 
- }
- */
+    }
+// ISLOWER
+ printf("\n\n Vamos verificar se a strign %c é uma letra minuscula", string1);
+         if(islower(string1)){
+            printf("\n A String %c é uma letra minuscula ", string1);
+         } else{
+                 printf("\n A String %c NÃO uma letra minuscula", string1);
+
+    }
+ // ISALNUM
+ printf("\n\n Vamos verificar se a strign %c é uma letra ou um número", string1);
+         if(isalnum(string1)){
+            printf("\n A String %c é uma letra ou um número", string1);
+         } else{
+                 printf("\n A String %c é um caractere diferente de letra ou número", string1);
+
+    }
+
+
     return 0;
 }
