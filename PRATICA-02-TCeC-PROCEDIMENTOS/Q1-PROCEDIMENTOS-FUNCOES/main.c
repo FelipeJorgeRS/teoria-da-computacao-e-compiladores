@@ -1,14 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MAX_SIZE 100
 
 /*(A)
-procedimento/função que leia duas sequências finitas de números naturais (N)
+procedimento/funÃ§Ã£o que leia duas sequÃªncias finitas de nÃºmeros naturais (N)
 a partir do teclado, apresente-as na tela e, depois, armazene-as em um arquivo no
 formato texto. */
-int sequenciaFinitaDeNumeros(int primeiraSequencia[] , int segundaSequencia []){
+void sequenciaFinitaDeNumeros(int primeiraSequencia[], int segundaSequencia[]){
     // imprimindo as sequencias na tela
-    printf("Primeira Sequencia: ");
+    printf("\nPrimeira Sequencia: ");
     for(int i = 0; i < 5; i++) {
         printf("%d ", primeiraSequencia[i]);
     }
@@ -17,64 +18,127 @@ int sequenciaFinitaDeNumeros(int primeiraSequencia[] , int segundaSequencia []){
         printf("%d ", segundaSequencia[i]);
     }
     FILE *arq;
-    arq =fopen("ARQUIVO.txt", "w");
-       if(arq == NULL){
-        printf("Não foi possível abrir o arquivo.\n");
-        return 1;
-       }
+    arq = fopen("ARQUIVO.txt", "w");
+    if(arq == NULL){
+        printf("NÃ£o foi possÃ­vel abrir o arquivo.\n");
+        exit(1);
+    }
     // gravando as sequencias no arquivo
-    // cada número das sequências é escrito no arquivo, seguido por um espaço.
-    fprintf(arq, "PRIMEIRA SEQUENCIA: ");
+    // cada nÃºmero das sequÃªncias Ã© escrito no arquivo, seguido por um espaÃ§o.
+    fprintf(arq, "\nPRIMEIRA SEQUENCIA: ");
     for(int i = 0; i < 5; i++) {
         fprintf(arq, "%d ", primeiraSequencia[i]);
     }
     fprintf(arq, "\n"); // quebra de linha para separa as duas sequencias
-    fprintf(arq, "SEGUNDA SEQUENCIA: ");
+    fprintf(arq, "\nSEGUNDA SEQUENCIA: ");
     for(int i = 0; i < 5; i++) {
         fprintf(arq, "%d ", segundaSequencia[i]);
     }
     fclose(arq);
-
     printf("\nSequencias gravadas no arquivo com sucesso!");
 }
 
 /*(B)
-procedimento/função que leia as duas sequências de números naturais a partir
+procedimento/funÃ§Ã£o que leia as duas sequÃªncias de nÃºmeros naturais a partir
 do arquivo, armazene-as em dois vetores e apresente os vetores na tela.
 */
-int lerSequenciaDeNumerosEmUmArquivo(int arr1[], int *size1, int arr2[], int *size2) {
+void lerSequenciaDeNumerosEmUmArquivo(int arr1[], int arr2[]) {
     FILE *file = fopen("ARQUIVO.txt", "rt");
     if (file == NULL) {
-        printf("Não foi possível abrir o arquivo.\n");
-        return 1;
+        printf("NÃ£o foi possÃ­vel abrir o arquivo.\n");
+        exit(1);
     }
 
-    int temp; //armazenar temporariamente cada número lido do arquivo.
+    int temp;
+    char str[20];
 
-    // Lê a primeira sequência de números
-    while (fscanf(file, "%d", &temp) == 1) {
-        arr1[(*size1)++] = temp;
+    // LÃª a primeira sequÃªncia de nÃºmeros
+    fscanf(file, "%s", str); // LÃª "PRIMEIRA SEQUENCIA:"
+    for(int i = 0; i < 5; i++) {
+        fscanf(file, "%d", &temp);
+        arr1[i] = temp;
     }
 
-    // Lê a segunda sequência de números
-    while (fscanf(file, "%d", &temp) == 1) {
-        arr2[(*size2)++] = temp;
+    fscanf(file, "%s", str); // LÃª "SEGUNDA SEQUENCIA:"
+    for(int i = 0; i < 5; i++) {
+        fscanf(file, "%d", &temp);
+        arr2[i] = temp;
     }
 
     fclose(file);
 }
 
+/*C) procedimento/funÃ§Ã£o que gere, e apresente na tela, o conjunto A a partir da
+primeira sequÃªncia e o conjunto B a partir da segunda sequÃªncia. A e B tambÃ©m sÃ£o
+vetores. Armazene os conjuntos A e B no arquivo original. OBS: todos os elementos de
+um conjunto sÃ£o distintos, nÃ£o hÃ¡ elementos repetidos.*/
 
-int main()
-{
-        int primeiraSequencia[]= {1,2,3,4,5};
-        int segundaSequencia []={6,7,8,9,10};
-/*a)*/  sequenciaFinitaDeNumeros(primeiraSequencia,segundaSequencia);
-
-/*b)*/ int tamanhoArray1= sizeof(primeiraSequencia);
-       int tamanhoArray2= sizeof(segundaSequencia);
-       lerSequenciaDeNumerosEmUmArquivo(primeiraSequencia,tamanhoArray1,segundaSequencia,tamanhoArray2);
-
-
+int existeNoConjunto(int conjunto[], int tamanho, int elemento) {
+    for (int i = 0; i < tamanho; i++) {
+        if (conjunto[i] == elemento) {
+            return 1;
+        }
+    }
     return 0;
+}
+
+void gravarConjuntoNoArquivo(FILE *arq, int conjunto[], int tamanho); // prototipo da funÃ§Ã£o
+
+void criarConjunto(int sequencia[], int conjunto[], int *tamanho, char* nomeConjunto) {
+    for (int i = 0; i < 5; i++) {
+        if (!existeNoConjunto(conjunto, *tamanho, sequencia[i])) {
+            conjunto[(*tamanho)++] = sequencia[i];
+        }
+    }
+
+    FILE *arq = fopen("ARQUIVO.txt", "a");
+    
+    if (arq == NULL) {
+        printf("NÃ£o foi possÃ­vel abrir o arquivo.\n");
+        exit(1); // Encerra o programa se nÃ£o conseguir abrir o arquivo
+    }
+
+    fprintf(arq, "\n%s: ", nomeConjunto);
+    gravarConjuntoNoArquivo(arq, conjunto, *tamanho);
+
+    fclose(arq);
+}
+
+void imprimirConjunto(int conjunto[], int tamanho) {
+    for (int i = 0; i < tamanho; i++) {
+        printf("%d ", conjunto[i]);
+    }
+    printf("\n");
+}
+
+void gravarConjuntoNoArquivo(FILE *arq, int conjunto[], int tamanho) {
+    for (int i = 0; i < tamanho; i++) {
+        fprintf(arq, "%d ", conjunto[i]);
+    }
+    fprintf(arq, "\n");
+}
+
+
+int main() {
+        int primeiraSequencia[5]= {1,2,3,4,5};
+        int segundaSequencia [5]={6,7,8,9,10};
+/*a)*/  sequenciaFinitaDeNumeros(primeiraSequencia,segundaSequencia);
+        
+/*b)*/  lerSequenciaDeNumerosEmUmArquivo(primeiraSequencia,segundaSequencia);
+/*Imprime os vetores na tela*/ //sequenciaFinitaDeNumeros(primeiraSequencia,segundaSequencia);
+
+/*c)*/  int conjuntoA[5]={11,12,13,14,15};
+        int conjuntoB[5]={16,17,18,19,20};
+        int tamanhoA = 5; 
+        int tamanhoB = 5;
+        
+        criarConjunto(conjuntoA, conjuntoA, &tamanhoA, "Conjunto A");
+        criarConjunto(conjuntoB, conjuntoB, &tamanhoB, "Conjunto B");
+    
+        printf("\nConjunto A: ");
+        imprimirConjunto(conjuntoA, tamanhoA);
+        
+        printf("\nConjunto B: ");
+        imprimirConjunto(conjuntoB, tamanhoB);
+            return 0;
 }
