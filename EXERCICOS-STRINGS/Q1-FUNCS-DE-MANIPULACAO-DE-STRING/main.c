@@ -57,7 +57,7 @@ printf("\n\n Vamos verificar se a strign %c é uma NÚMERO", string1);
          if(isalnum(string1)){
             printf("\n A String %c é uma letra ou um número", string1);
          } else{
-                 printf("\n A String %c é um caractere diferente de letra ou número", string1);
+                 printf("\n A String %c é um caractere especial (diferente de letra ou número)", string1);
 
     }
 
